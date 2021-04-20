@@ -14,11 +14,15 @@ def make_val_opt(opt):
     # hard-code some parameters for test
     opt.num_threads = 0   # test code only supports num_threads = 1
     opt.batch_size = 1    # test code only supports batch_size = 1
-    opt.serial_batches = True  # disable data shuffling; comment this line if results on randomly chosen images are needed.
-    opt.no_flip = True    # no flip; comment this line if results on flipped images are needed.
-    opt.no_flip2 = True    # no flip; comment this line if results on flipped images are needed.
+    # disable data shuffling; comment this line if results on randomly chosen images are needed.
+    opt.serial_batches = True
+    # no flip; comment this line if results on flipped images are needed.
+    opt.no_flip = True
+    # no flip; comment this line if results on flipped images are needed.
+    opt.no_flip2 = True
 
-    opt.display_id = -1   # no visdom display; the test code saves the results to a HTML file.
+    # no visdom display; the test code saves the results to a HTML file.
+    opt.display_id = -1
     opt.phase = 'val'
     opt.preprocess = 'none1'
     opt.isTrain = False
@@ -28,12 +32,14 @@ def make_val_opt(opt):
     return opt
 
 
-
 def val(opt):
 
-    dataset = create_dataset(opt)  # create a dataset given opt.dataset_mode and other options
-    model = create_model(opt)      # create a model given opt.model and other options
-    model.setup(opt)               # regular setup: load and print networks; create schedulers
+    # create a dataset given opt.dataset_mode and other options
+    dataset = create_dataset(opt)
+    # create a model given opt.model and other options
+    model = create_model(opt)
+    # regular setup: load and print networks; create schedulers
+    model.setup(opt)
     save_path = opt.results_dir
     mkdir(save_path)
     model.eval()

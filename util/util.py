@@ -14,15 +14,17 @@ def save_images(images, img_dir, name):
     name: list [str]
     """
     for i, image in enumerate(images):
-        print(image.shape)
-        image_numpy = tensor2im(image.unsqueeze(0),normalize=False)*255
+        # print(image.shape)
+        image_numpy = tensor2im(image.unsqueeze(0), normalize=False)*255
         basename = os.path.basename(name[i])
+        # update the basename with suffix.
+        basename = "predict_"+basename
         print('name:', basename)
-        save_path = os.path.join(img_dir,basename)
-        save_image(image_numpy,save_path)
+        save_path = os.path.join(img_dir, basename)
+        save_image(image_numpy, save_path)
 
 
-def save_visuals(visuals,img_dir,name):
+def save_visuals(visuals, img_dir, name):
     """
     """
     name = ntpath.basename(name)
@@ -47,13 +49,15 @@ def tensor2im(input_image, imtype=np.uint8, normalize=True):
             image_tensor = input_image.data
         else:
             return input_image
-        image_numpy = image_tensor[0].cpu().float().numpy()  # convert it into a numpy array
+        # convert it into a numpy array
+        image_numpy = image_tensor[0].cpu().float().numpy()
         if image_numpy.shape[0] == 1:  # grayscale to RGB
             image_numpy = np.tile(image_numpy, (3, 1, 1))
 
         image_numpy = np.transpose(image_numpy, (1, 2, 0))
         if normalize:
-            image_numpy = (image_numpy + 1) / 2.0 * 255.0  # post-processing: tranpose and scaling
+            # post-processing: tranpose and scaling
+            image_numpy = (image_numpy + 1) / 2.0 * 255.0
 
     else:  # if it is a numpy array, do nothing
         image_numpy = input_image

@@ -17,3 +17,5 @@ torch.egg-info/
 */**/*.dylib*
 .idea
 
+.vscode
+samples/output
